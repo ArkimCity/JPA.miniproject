@@ -1,6 +1,8 @@
 package model.domain;
 
-import java.util.Date;
+
+
+import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +24,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 
-//@NamedQuery(query="select e from Employee e where e.empno=:empno" , name="Employee.findByEmpno")
+@NamedQuery(query="select c from SeoulCovid c where c.patientnumber=:patientnumber" , name="SeoulCovid.findByPbumber")
 
 @Entity
 public class SeoulCovid {
@@ -35,10 +37,24 @@ public class SeoulCovid {
 	private String history;
 	
 	@Column(name="확진일")
-	private Date caughtdate;
+	private String caughtdate;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name = "지역") // (이 테이블에선 이게 지역 인데 이 부분을 어떻게 해야 할까나)
 	private SeoulPopulation location;
-	
+
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("SeoulCovid [patientnumber=");
+		builder.append(patientnumber);
+		builder.append(", history=");
+		builder.append(history);
+		builder.append(", caughtdate=");
+		builder.append(caughtdate);
+		builder.append(", location=");
+		builder.append(location.getLocation());
+		builder.append("]");
+		return builder.toString();
+	}
 }

@@ -1,9 +1,5 @@
 package model.domain;
 
-
-
-import java.sql.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -24,7 +20,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 
-@NamedQuery(query="select c from SeoulCovid c where c.patientnumber=:patientnumber" , name="SeoulCovid.findByPbumber")
+@NamedQuery(query="select c from SeoulCovid c where c.patientnumber=:patientnumber" , name="SeoulCovid.findByPnumber")
+@NamedQuery(query="select c.caughtdate from SeoulCovid c" , name="SeoulCovid.getDateList")
+@NamedQuery(query="select count(c) from SeoulCovid c where c.caughtdate=:caughtdate and c.location=:location" , name="SeoulCovid.getDateLocationCount")
 
 @Entity
 public class SeoulCovid {
@@ -46,7 +44,7 @@ public class SeoulCovid {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("SeoulCovid [patientnumber=");
+		builder.append("[patientnumber=");
 		builder.append(patientnumber);
 		builder.append(", history=");
 		builder.append(history);

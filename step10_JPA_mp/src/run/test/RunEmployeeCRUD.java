@@ -5,10 +5,10 @@
 
 package run.test;
 
+import java.util.ArrayList;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
-
-import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
 import model.domain.SeoulPopulation;
@@ -20,68 +20,66 @@ import util.PublicCommon;
 public class RunEmployeeCRUD {
 
 	public static void main(String[] args) {
-//		createEmployee();
-//		updateEmployee();
-		findElement();
-//		deleteElement();
+		
+		
+		createSeoulCovid(10000, "재웅 통해서 감염", "20/12/11", "강서구");
+		findElement(10000);
+		updateSeoulCovid(10000, "온라인 상에서 감염");
+		findElement(10000);
+		deleteElement(10000);
 	}
 	
-//	public static void createEmployee() {
-//		EntityManager em = PublicCommon.getEntityManger();
-//		EntityTransaction tx = em.getTransaction();
-//		tx.begin();
-//
-//		try {
-////			Department d50 = Department.builder().deptno(50L).dName("Technical Manager").loc("SEOUL").build();
-////			
-////			em.persist(d50);
-//			SeoulPopulation d50 = (SeoulPopulation) em.createNamedQuery("Department.findByDeptno").setParameter("deptno", 50L).getSingleResult();
-////			Department d50 = em.find(Department.class, 50L);
-//
-//			SeoulCovid employee = SeoulCovid.builder().empno(1201L).ename("Gopal").sal(40000L).deptno(d50).build();
-//
-//			em.persist(employee);
-//
-//			tx.commit();
-//			log.warn("생성 기록");
-//		} catch (Exception e) {
-//			tx.rollback();
-//			e.printStackTrace();
-//		} finally {
-//			em.close();
-//		}
-//	}
+	public static void createSeoulCovid(int pnumber, String history, String caughtdate, String location) {
+		EntityManager em = PublicCommon.getEntityManger();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+
+		try {
+			SeoulPopulation d50 = (SeoulPopulation) em.createNamedQuery("SeoulPopulation.location").setParameter("location", location).getSingleResult();
+
+			SeoulCovid seoulcovid = SeoulCovid.builder().patientnumber(Integer.toUnsignedLong(pnumber)).history(history).caughtdate(caughtdate).location(d50).build();
+
+			em.persist(seoulcovid);
+
+			tx.commit();
+			log.warn("생성 기록");
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	}
 	
 
-//	public static void updateEmployee() {
-//		EntityManager em = PublicCommon.getEntityManger();
-//		EntityTransaction tx = em.getTransaction();
-//		tx.begin();
-//		try {
-//			SeoulCovid employee = em.find(SeoulCovid.class, 1201L);
-//
-//			System.out.println("update 전 : " + employee);
-//			employee.setSal(46000L);
-//			tx.commit();
-//			log.warn("업데이트 기록");
-//			// after update
-//			System.out.println("update 후 : " + employee);
-//		} catch (Exception e) {
-//			tx.rollback();
-//			e.printStackTrace();
-//		} finally {
-//			em.close();
-//		}
-//	}
-	
-
-	public static void findElement() {
+	public static void updateSeoulCovid(int index, String content) {
 		EntityManager em = PublicCommon.getEntityManger();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		try {
-			SeoulCovid seoulcovid = (SeoulCovid) em.createNamedQuery("SeoulCovid.findByPbumber").setParameter("patientnumber", 1L).getSingleResult();
-//			Employee employee = em.find(Employee.class, 1201L);
+			SeoulCovid seoulcovid = em.find(SeoulCovid.class, Integer.toUnsignedLong(index));
+
+			System.out.println("update 전 : " + seoulcovid);
+			seoulcovid.setHistory(content);
+			tx.commit();
+			log.warn("업데이트 기록");
+			// after update
+			System.out.println("update 후 : " + seoulcovid);
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	}
+	
+
+	public static void findElement(int index) {
+		EntityManager em = PublicCommon.getEntityManger();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		try {
+			SeoulCovid seoulcovid = (SeoulCovid) em.createNamedQuery("SeoulCovid.findByPnumber").setParameter("patientnumber", Integer.toUnsignedLong(index)).getSingleResult();
 
 			if (seoulcovid != null) {
 				System.out.println(seoulcovid);
@@ -96,21 +94,54 @@ public class RunEmployeeCRUD {
 		}
 	}
 	
-//	public static void deleteElement() {
-//		EntityManager em = PublicCommon.getEntityManger();
-//		EntityTransaction tx = em.getTransaction();
-//		tx.begin();
-//		try {
-//			SeoulCovid employee = em.find(SeoulCovid.class, 1201L);
-//			em.remove(employee);
-//
-//			tx.commit();
-//			log.warn("삭제 기록");
-//		} catch (Exception e) {
-//			tx.rollback();
-//			e.printStackTrace();
-//		} finally {
-//			em.close();
-//		}
-//	}
+	public static ArrayList<String> getAllLocations() {
+		EntityManager em = PublicCommon.getEntityManger();
+		EntityTransaction tx = em.getTransaction();
+		ArrayList<String> locations = new ArrayList<String>();
+		tx.begin();
+		try {
+			locations = (ArrayList<String>) em.createNamedQuery("SeoulPopulation.locations").getResultList();
+			
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return locations;
+	}
+	
+	public static ArrayList<String> getAllDates() {
+		EntityManager em = PublicCommon.getEntityManger();
+		EntityTransaction tx = em.getTransaction();
+		ArrayList<String> datelist = new ArrayList<String>();
+		tx.begin();
+		try {
+			datelist = (ArrayList<String>) em.createNamedQuery("SeoulCovid.getDateList").getResultList();
+			
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return datelist;
+	}
+	
+	public static void deleteElement(int index) {
+		EntityManager em = PublicCommon.getEntityManger();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		try {
+			SeoulCovid seoulcovid = em.find(SeoulCovid.class, Integer.toUnsignedLong(index));
+			em.remove(seoulcovid);
+			tx.commit();
+			log.warn("삭제 기록");
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	}
 }

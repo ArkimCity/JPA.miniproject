@@ -20,7 +20,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 
-//@NamedQuery(query="select d from Department d where d.deptno=:deptno" , name="Department.findByDeptno")
+@NamedQuery(query="select p from SeoulPopulation p where p.location=:location" , name="SeoulPopulation.location")
+@NamedQuery(query="select p.location from SeoulPopulation p" , name="SeoulPopulation.locations")
 
 @Entity
 public class SeoulPopulation {

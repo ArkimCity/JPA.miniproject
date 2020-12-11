@@ -11,8 +11,8 @@ import javax.persistence.EntityTransaction;
 import org.junit.jupiter.api.Test;
 
 import lombok.extern.slf4j.Slf4j;
-import model.domain.Department;
-import model.domain.Employee;
+import model.domain.SeoulPopulation;
+import model.domain.SeoulCovid;
 import util.PublicCommon;
 
 @Slf4j
@@ -35,10 +35,10 @@ public class RunEmployeeCRUD {
 //			Department d50 = Department.builder().deptno(50L).dName("Technical Manager").loc("SEOUL").build();
 //			
 //			em.persist(d50);
-			Department d50 = (Department) em.createNamedQuery("Department.findByDeptno").setParameter("deptno", 50L).getSingleResult();
+			SeoulPopulation d50 = (SeoulPopulation) em.createNamedQuery("Department.findByDeptno").setParameter("deptno", 50L).getSingleResult();
 //			Department d50 = em.find(Department.class, 50L);
 
-			Employee employee = Employee.builder().empno(1201L).ename("Gopal").sal(40000L).deptno(d50).build();
+			SeoulCovid employee = SeoulCovid.builder().empno(1201L).ename("Gopal").sal(40000L).deptno(d50).build();
 
 			em.persist(employee);
 
@@ -57,7 +57,7 @@ public class RunEmployeeCRUD {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		try {
-			Employee employee = em.find(Employee.class, 1201L);
+			SeoulCovid employee = em.find(SeoulCovid.class, 1201L);
 
 			System.out.println("update 전 : " + employee);
 			employee.setSal(46000L);
@@ -78,7 +78,7 @@ public class RunEmployeeCRUD {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		try {
-			Employee employee = (Employee) em.createNamedQuery("Employee.findByEmpno").setParameter("empno", 1201L).getSingleResult();
+			SeoulCovid employee = (SeoulCovid) em.createNamedQuery("Employee.findByEmpno").setParameter("empno", 1201L).getSingleResult();
 //			Employee employee = em.find(Employee.class, 1201L);
 
 			if (employee != null) {
@@ -99,7 +99,7 @@ public class RunEmployeeCRUD {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
 		try {
-			Employee employee = em.find(Employee.class, 1201L);
+			SeoulCovid employee = em.find(SeoulCovid.class, 1201L);
 			em.remove(employee);
 
 			tx.commit();

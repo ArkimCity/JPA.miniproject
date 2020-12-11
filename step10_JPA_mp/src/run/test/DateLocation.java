@@ -7,12 +7,13 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import model.domain.SeoulCovid;
+import model.domain.SeoulPopulation;
 import util.PublicCommon;
 
 public class DateLocation {
 
 	public static void main(String[] args) {
-		System.out.println(returnMap());
+		System.out.println(returnMap().get("20/11/01"));
 	}
 	
 	public static HashMap returnMap() {
@@ -27,7 +28,7 @@ public class DateLocation {
 			for(String date : datelist) {
 				HashMap smallmap = new HashMap();
 				for(String location : locationlist) {
-					smallmap.put(location, em.createNamedQuery("SeoulCovid.getDateLocationCount").setParameter("caughtdate", date).setParameter("location", location).getSingleResult());
+					smallmap.put(location, em.createNamedQuery("SeoulCovid.getDateLocationCount").setParameter("caughtdate", date).setParameter("location", em.find(SeoulPopulation.class, location)).getSingleResult());
 				}
 				bigmap.put(date, smallmap);
 			}

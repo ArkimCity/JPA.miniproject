@@ -23,6 +23,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 
+@NamedQuery(query="select p.alocation from SeoulLocRelation p where p.plocation=:location" , name="SeoulLocRelations.locations")
+
 @Entity
 @SequenceGenerator(name = "LR_seq_gen", sequenceName = "LR_seq_id", initialValue = 1, allocationSize=1)
 public class SeoulLocRelation {

@@ -28,26 +28,21 @@ import util.PublicCommon;
 public class RunningStartView {
 
 	public static void main(String[] args) {
-		SeoulCovidController.createSeoulCovid(10000, "재웅 통해서 감염", "20/12/11", "강서구");
-		SeoulCovidController.findElement(10000);
-		SeoulCovidController.updateSeoulCovid(10000, "온라인 상에서 감염");
-		SeoulCovidController.findElement(10000);
-		SeoulCovidController.deleteElement(10000);
+		//기본 CRUD
+//		SeoulCovidController.createSeoulCovid(10000, "재웅 통해서 감염", "20/12/11", "강서구");
+//		SeoulCovidController.findElement(10000);
+//		SeoulCovidController.updateSeoulCovid(10000, "온라인 상에서 감염");
+//		SeoulCovidController.findElement(10000);
+//		SeoulCovidController.deleteElement(10000);
 		
 //		SeoulCovidController.getDateLocationSum();
 //		SeoulCovidController.findDateLocation("20/11/01");
 		
 		//인접한 지역 테이블 만들기
+//		SeoulCovidController.setLocRelations();
 		
-//		GuiMainView view = new GuiMainView();
-//		EntityManager em = PublicCommon.getEntityManger();
-//		EntityTransaction tx = em.getTransaction();
-//		tx.begin();
-//		String content = DateLocationService.getFileContent("skorea_municipalities_geo_simple.json");
-////	System.out.println(content);
-//		detect(DateLocationService.mapping(JsonSimpleAPI.toJSONArray(content)), em);
-//		tx.commit();
-//		em.close();
+		SeoulCovidController.getChartGraph("강남구");
+		
 	}
 }
 

@@ -35,5 +35,14 @@ public class SeoulPopulation {
 	@OneToMany(mappedBy="location")
 	private List<SeoulCovid> seoulcovids;
 
-
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("SeoulPopulation [location=");
+		builder.append(location);
+		builder.append(", population=");
+		builder.append(population);
+		builder.append("]");
+		return builder.toString();
+	}
 }

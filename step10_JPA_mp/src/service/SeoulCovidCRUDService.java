@@ -3,7 +3,7 @@
 //alter table employee add constraints employee_deptno_fk foreign key (deptno) references dept(deptno);
 
 
-package run.test;
+package service;
 
 import java.util.ArrayList;
 
@@ -17,11 +17,9 @@ import util.PublicCommon;
 
 @Slf4j
 
-public class RunEmployeeCRUD {
+public class SeoulCovidCRUDService {
 
 	public static void main(String[] args) {
-		
-		
 		createSeoulCovid(10000, "재웅 통해서 감염", "20/12/11", "강서구");
 		findElement(10000);
 		updateSeoulCovid(10000, "온라인 상에서 감염");
@@ -74,24 +72,20 @@ public class RunEmployeeCRUD {
 	}
 	
 
-	public static void findElement(int index) {
+	public static SeoulCovid findElement(int index) {
 		EntityManager em = PublicCommon.getEntityManger();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
+		SeoulCovid seoulcovid = new SeoulCovid();
 		try {
-			SeoulCovid seoulcovid = (SeoulCovid) em.createNamedQuery("SeoulCovid.findByPnumber").setParameter("patientnumber", Integer.toUnsignedLong(index)).getSingleResult();
-
-			if (seoulcovid != null) {
-				System.out.println(seoulcovid);
-			} else {
-				System.out.println("검색 요청한 직원은 미존재합니다");
-			}
+			seoulcovid = (SeoulCovid) em.createNamedQuery("SeoulCovid.findByPnumber").setParameter("patientnumber", Integer.toUnsignedLong(index)).getSingleResult();
 		} catch (Exception e) {
 			tx.rollback();
 			e.printStackTrace();
 		} finally {
 			em.close();
 		}
+		return seoulcovid;
 	}
 	
 	public static ArrayList<String> getAllLocations() {
@@ -101,7 +95,6 @@ public class RunEmployeeCRUD {
 		tx.begin();
 		try {
 			locations = (ArrayList<String>) em.createNamedQuery("SeoulPopulation.locations").getResultList();
-			
 		} catch (Exception e) {
 			tx.rollback();
 			e.printStackTrace();

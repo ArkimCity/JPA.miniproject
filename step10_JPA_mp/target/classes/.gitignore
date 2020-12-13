@@ -1,3 +1,5 @@
-/run/
-/model/
-/META-INF/
+/carrot/
+/service/
+/view/
+/controller/
+/exception/

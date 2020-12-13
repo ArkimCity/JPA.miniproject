@@ -38,7 +38,7 @@ public class SeoulCovid {
 	private String caughtdate;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name = "지역") // (이 테이블에선 이게 지역 인데 이 부분을 어떻게 해야 할까나)
+	@JoinColumn(name = "지역")
 	private SeoulPopulation location;
 
 	@Override

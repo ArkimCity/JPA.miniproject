@@ -1,5 +1,3 @@
-/carrot/
 /service/
-/view/
-/controller/
-/exception/
+/model/
+/api/

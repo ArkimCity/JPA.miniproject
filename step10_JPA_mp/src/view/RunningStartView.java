@@ -17,7 +17,13 @@
  */
 package view;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
+import api.JsonSimpleAPI;
 import controller.SeoulCovidController;
+import service.DateLocationService;
+import util.PublicCommon;
 
 public class RunningStartView {
 
@@ -29,6 +35,19 @@ public class RunningStartView {
 		SeoulCovidController.deleteElement(10000);
 		
 //		SeoulCovidController.getDateLocationSum();
-		SeoulCovidController.findDateLocation("20/11/01");
+//		SeoulCovidController.findDateLocation("20/11/01");
+		
+		//인접한 지역 테이블 만들기
+		
+//		GuiMainView view = new GuiMainView();
+//		EntityManager em = PublicCommon.getEntityManger();
+//		EntityTransaction tx = em.getTransaction();
+//		tx.begin();
+//		String content = DateLocationService.getFileContent("skorea_municipalities_geo_simple.json");
+////	System.out.println(content);
+//		detect(DateLocationService.mapping(JsonSimpleAPI.toJSONArray(content)), em);
+//		tx.commit();
+//		em.close();
 	}
 }
+

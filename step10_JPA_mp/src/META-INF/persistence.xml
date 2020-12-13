@@ -3,6 +3,7 @@
 	<persistence-unit name="oracleDBUse">
 		<class>model.domain.SeoulCovid</class>
 		<class>model.domain.SeoulPopulation</class>
+		<class>model.domain.SeoulLocRelation</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver" />
 			<property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />

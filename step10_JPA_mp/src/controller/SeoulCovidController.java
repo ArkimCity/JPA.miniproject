@@ -12,24 +12,24 @@ import view.RunningEndView;
 //현 로직 : view.RunningStrartView에서 호출 
 public class SeoulCovidController {
 	// ----------------------------Date/Location 관련 로직----------------------------
-	static HashMap<String, HashMap<String, Object>> map = DateLocationService.getDLSum();
-	public static void getDateLocationSum() {
-		try {
-			RunningEndView.projectMapView(map);
-		} catch (Exception e) {
-			RunningEndView.showError("코로나 기록 검색시 에러 발생");
-			e.printStackTrace();
-		}
-	}
-	
-	public static void findDateLocation(String Date) {
-		try {
-			RunningEndView.allView(map.get(Date));
-		} catch (Exception e) {
-			RunningEndView.showError("코로나 기록 검색시 에러 발생");
-			e.printStackTrace();
-		}
-	}
+//	static HashMap<String, HashMap<String, Object>> map = DateLocationService.getDLSum();
+//	public static void getDateLocationSum() {
+//		try {
+//			RunningEndView.projectMapView(map);
+//		} catch (Exception e) {
+//			RunningEndView.showError("코로나 기록 검색시 에러 발생");
+//			e.printStackTrace();
+//		}
+//	}
+//	
+//	public static void findDateLocation(String Date) {
+//		try {
+//			RunningEndView.allView(map.get(Date));
+//		} catch (Exception e) {
+//			RunningEndView.showError("코로나 기록 검색시 에러 발생");
+//			e.printStackTrace();
+//		}
+//	}
 	// ----------------------------Covid table  CRUD 관련 로직----------------------------
 	public static void findElement(int index) {
 		try {

@@ -1,12 +1,25 @@
 package service;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.transaction.Transactional;
 
+import org.json.simple.JSONArray;
+
+import api.JsonSimpleAPI;
+import lombok.extern.slf4j.Slf4j;
+import model.domain.SeoulLocRelation;
+import model.domain.SeoulPopulation;
 import util.PublicCommon;
+
+@Slf4j
 
 public class DateLocationService {
 
@@ -21,7 +34,7 @@ public class DateLocationService {
 			long beforeTime = System.currentTimeMillis();
 			for (String date : datelist) {
 				HashMap<String, Object> smallmap = new HashMap<String, Object>();
-	
+
 				for (String location : locationlist) {
 					smallmap.put(location, em.createNativeQuery("select " + location + " from loctime where 확진일=?")
 							.setParameter(1, date).getSingleResult());
@@ -38,10 +51,72 @@ public class DateLocationService {
 		}
 		return bigmap;
 	}
+
+	public static String getFileContent(String filename) {
+		StringBuffer sbuf = new StringBuffer();
+		String fileContent = null;
+		InputStream is;
+		try {
+			is = new FileInputStream(filename);
+			InputStreamReader isr = new InputStreamReader(is, "UTF-8");
+			BufferedReader br = new BufferedReader(isr);
+			String str;
+			while ((str = br.readLine()) != null) {
+				sbuf.append(str + "\r\n");
+			}
+			fileContent = sbuf.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return fileContent;
+	}
+
+	public static HashMap<String, ArrayList<ArrayList<Long>>> mapping(JSONArray jsonarray) {
+		HashMap<String, ArrayList<ArrayList<Long>>> map = new HashMap<String, ArrayList<ArrayList<Long>>>();
+		ArrayList<String> locationlist = SeoulCovidCRUDService.getAllLocations();
+		for (Object feature : jsonarray.toArray()) {
+			HashMap map1 = (HashMap) feature;
+			String id = (String) map1.get("id");
+			HashMap map2 = (HashMap) map1.get("geometry");
+			ArrayList<ArrayList> map3 = (ArrayList<ArrayList>) map2.get("coordinates");
+			ArrayList<ArrayList<Long>> map4 = (ArrayList<ArrayList<Long>>) map3.get(0);
+			map.put(id, map4);
+		}
+		return map;
+	}
+
+	public static void detect(HashMap<String, ArrayList<ArrayList<Long>>> map, EntityManager em) {
+		ArrayList<String> locationlist = SeoulCovidCRUDService.getAllLocations();
+		for (String location : locationlist) {
+			for (ArrayList<Long> point : map.get(location)) {
+				detector(location, point, map, em);
+				break;
+			}
+			log.warn(location + " 체크 기록");
+		}
+
+	}
+
+	public static void detector(String plocation, ArrayList<Long> point,
+			HashMap<String, ArrayList<ArrayList<Long>>> map, EntityManager em) {
+		ArrayList<String> locationlist = SeoulCovidCRUDService.getAllLocations();
+		try {
+			for (String alocation : locationlist) {
+				if (map.get(alocation).contains(point) && alocation != plocation) {
+					SeoulLocRelation slr = SeoulLocRelation.builder().plocation(plocation).alocation(alocation).build();
+					em.persist(slr);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// detector를 만들자. 이제 포인트 하나하나가
 }
 
 /*
- * create view loctime as select 확진일, sum(decode(지역, '종로구',1,0)) 종로구,
+ * create table loctime as select 확진일, sum(decode(지역, '종로구',1,0)) 종로구,
  * sum(decode(지역, '중구',1,0)) 중구, sum(decode(지역, '용산구',1,0)) 용산구, sum(decode(지역,
  * '성동구',1,0)) 성동구, sum(decode(지역, '광진구',1,0)) 광진구, sum(decode(지역, '동대문구',1,0))
  * 동대문구, sum(decode(지역, '중랑구',1,0)) 중랑구, sum(decode(지역, '성북구',1,0)) 성북구,

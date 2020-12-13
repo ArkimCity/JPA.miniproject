@@ -21,7 +21,7 @@ import lombok.Setter;
 @Builder
 
 @NamedQuery(query="select c from SeoulCovid c where c.patientnumber=:patientnumber" , name="SeoulCovid.findByPnumber")
-@NamedQuery(query="select c.caughtdate from SeoulCovid c" , name="SeoulCovid.getDateList")
+@NamedQuery(query="select c.caughtdate from SeoulCovid c order by c.caughtdate asc" , name="SeoulCovid.getDateList")
 @NamedQuery(query="select count(c) from SeoulCovid c where c.caughtdate=:caughtdate and c.location=:location" , name="SeoulCovid.getDateLocationCount")
 
 @Entity

@@ -28,7 +28,7 @@ public class SeoulPopulation {
 	@Id
 	@Column(name="구분")
 	private String location;
-	
+
 	@Column(name="인구")
 	private Long population;
 	

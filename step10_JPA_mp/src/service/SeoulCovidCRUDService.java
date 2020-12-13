@@ -19,14 +19,6 @@ import util.PublicCommon;
 
 public class SeoulCovidCRUDService {
 
-	public static void main(String[] args) {
-		createSeoulCovid(10000, "재웅 통해서 감염", "20/12/11", "강서구");
-		findElement(10000);
-		updateSeoulCovid(10000, "온라인 상에서 감염");
-		findElement(10000);
-		deleteElement(10000);
-	}
-	
 	public static void createSeoulCovid(int pnumber, String history, String caughtdate, String location) {
 		EntityManager em = PublicCommon.getEntityManger();
 		EntityTransaction tx = em.getTransaction();

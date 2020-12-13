@@ -19,10 +19,10 @@ public class GuiMainView extends JFrame {
 	private JLabel googleMap = new JLabel();
 	private String location = "서울";
 
-	JLabel label1 = new JLabel("S : 판매자(사용자)");
-	JLabel label2 = new JLabel("B : 구매자");
+	private JLabel label1 = new JLabel("S : 판매자(사용자)");
+	private JLabel label2 = new JLabel("B : 구매자");
 
-	public GuiMainView(String appuserId) {
+	public GuiMainView() {
 
 		setLayout(new BorderLayout());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

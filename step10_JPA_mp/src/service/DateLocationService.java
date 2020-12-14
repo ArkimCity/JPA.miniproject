@@ -22,10 +22,10 @@ public class DateLocationService {
 	private static EntityManager em;
 	private static ArrayList<String> locationlist;
 
-//	static {
-//		em = PublicCommon.getEntityManger();
-//		locationlist = SeoulCovidCRUDService.getAllLocations();
-//	}
+	static {
+		em = PublicCommon.getEntityManger();
+		locationlist = SeoulCovidCRUDService.getAllLocations();
+	}
 
 	public static HashMap<String, HashMap<String, Object>> getDLSum() {
 		em = PublicCommon.getEntityManger();
@@ -35,14 +35,14 @@ public class DateLocationService {
 		HashMap<String, HashMap<String, Object>> bigmap = new HashMap<String, HashMap<String, Object>>();
 //		tx.begin();
 //		try {
-////			for (String date : datelist) {
-////				HashMap<String, Object> smallmap = new HashMap<String, Object>();
-////
-////				for (String location : locationlist) {
-////					smallmap.put(location, em.createNativeQuery("select " + location + " from loctime where 확진일=?")
-////							.setParameter(1, date).getSingleResult());
-////				}
-////				bigmap.put(date, smallmap);
+//			for (String date : datelist) {
+//				HashMap<String, Object> smallmap = new HashMap<String, Object>();
+//
+//				for (String location : locationlist) {
+//					smallmap.put(location, em.createNativeQuery("select " + location + " from loctime where 확진일=?")
+//							.setParameter(1, date).getSingleResult());
+//				}
+//				bigmap.put(date, smallmap);
 //			}
 //		} catch (Exception e) {
 //			tx.rollback();
@@ -66,6 +66,8 @@ public class DateLocationService {
 				sbuf.append(str + "\r\n");
 			}
 			fileContent = sbuf.toString();
+			is.close();
+			isr.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -88,6 +90,7 @@ public class DateLocationService {
 	public static void detect(HashMap<String, ArrayList<ArrayList<Long>>> map) {
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
+		Long i = 1L;
 		try {
 			for (String location : locationlist) {
 				ArrayList<String> alocations = new ArrayList<String>();
@@ -97,11 +100,11 @@ public class DateLocationService {
 		 				if (alocations.contains(alocation)) {
 		 					detecto = false;
 		 				}
-		 				
 						if (map.get(alocation).contains(point) && alocation != location && detecto) {
 							alocations.add(alocation);
-							SeoulLocRelation slr = SeoulLocRelation.builder().plocation(location).alocation(alocation).build();
+							SeoulLocRelation slr = SeoulLocRelation.builder().index(i).plocation(location).alocation(alocation).build();
 							em.persist(slr);
+							i++;
 							break;
 						}
 					}

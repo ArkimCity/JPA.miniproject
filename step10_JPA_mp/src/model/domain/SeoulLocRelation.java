@@ -26,10 +26,9 @@ import lombok.Setter;
 @NamedQuery(query="select p.alocation from SeoulLocRelation p where p.plocation=:location" , name="SeoulLocRelations.locations")
 
 @Entity
-@SequenceGenerator(name = "LR_seq_gen", sequenceName = "LR_seq_id", initialValue = 1, allocationSize=1)
+//@SequenceGenerator(name = "LR_seq_gen", sequenceName = "LR_seq_id", initialValue = 1, allocationSize=1)
 public class SeoulLocRelation {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LR_seq_gen")
 	@Column(name = "연결번호")
 	private Long index;
 	

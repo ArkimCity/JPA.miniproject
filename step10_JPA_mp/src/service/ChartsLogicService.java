@@ -6,14 +6,16 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import api.TimeSeriesAPI;
 import util.PublicCommon;
-import view.TimeSeriesView;
 
 public class ChartsLogicService {
 	
+	private ChartsLogicService() {
+	}
+	
 	public static void getChartsGraph(String location) {
-		ArrayList<String> locations = getLocRelations(location);
-		TimeSeriesView.getChartsGraph(locations, location);
+		TimeSeriesAPI.getChartGraph(location);
 	}
 	
 	public static ArrayList<String> getLocRelations(String location) {
@@ -23,6 +25,7 @@ public class ChartsLogicService {
 		tx.begin();
 		try {
 			locations = (ArrayList<String>) em.createNamedQuery("SeoulLocRelations.locations").setParameter("location", location).getResultList();
+			tx.commit();
 		} catch (Exception e) {
 			tx.rollback();
 			e.printStackTrace();

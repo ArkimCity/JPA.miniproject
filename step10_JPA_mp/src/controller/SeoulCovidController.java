@@ -1,27 +1,29 @@
 package controller;
 
-import java.sql.Date;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.jfree.ui.RefineryUtilities;
+
 import api.JsonSimpleAPI;
+import api.TimeSeriesAPI;
 import service.SeoulCovidCRUDService;
 import service.ChartsLogicService;
 import service.DateLocationService;
-import exception.NotExistException;
 import view.RunningEndView;
 
 //현 로직 : view.RunningStrartView에서 호출 
 public class SeoulCovidController {
+	static HashMap<String, HashMap<String, Object>> map = DateLocationService.getDLSum();
 	// ----------------------------차트 관련 로직----------------------------
 	public static void getChartGraph(String location) {
-		ChartsLogicService.getChartsGraph(location);
+		try {
+			ChartsLogicService.getChartsGraph(location);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
-	
 	// ----------------------------Date/Location 관련 로직----------------------------
-	static HashMap<String, HashMap<String, Object>> map = DateLocationService.getDLSum();
 	public static void getDateLocationSum() {
 		try {
 			RunningEndView.projectMapView(map);

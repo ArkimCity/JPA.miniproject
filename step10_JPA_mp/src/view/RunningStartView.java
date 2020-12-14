@@ -39,9 +39,9 @@ public class RunningStartView {
 //		SeoulCovidController.findDateLocation("20/11/01");
 		
 		//인접한 지역 테이블 만들기
-//		SeoulCovidController.setLocRelations();
+		SeoulCovidController.setLocRelations();
 		
-		SeoulCovidController.getChartGraph("강남구");
+		SeoulCovidController.getChartGraph("마포구");
 		
 	}
 }

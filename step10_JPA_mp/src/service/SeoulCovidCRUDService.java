@@ -1,7 +1,3 @@
-//alter table department add primary key(deptno);
-//alter table employee add primary key(empno);
-//alter table employee add constraints employee_deptno_fk foreign key (deptno) references dept(deptno);
-
 
 package service;
 
@@ -19,6 +15,24 @@ import util.PublicCommon;
 
 public class SeoulCovidCRUDService {
 
+//<<<<<<< Updated upstream:step10_JPA_mp/src/service/SeoulCovidCRUDService.java
+//=======
+	public static void main(String[] args) {
+		
+		System.out.println("=========INSERT==========");
+		createSeoulCovid(10000, "재웅 통해서 감염", "20/12/11", "강서구");
+		System.out.println("\n");
+		System.out.println("=========UPDATE==========");
+		updateSeoulCovid(10000, "온라인 상에서 감염");
+		System.out.println("\n");
+		System.out.println("=========SELECT==========");
+		findElement(10000);
+		System.out.println("\n");
+	    System.out.println("=========DELETE==========");
+		deleteElement(10000);
+	}
+
+//>>>>>>> Stashed changes:step10_JPA_mp/src/run/test/RunEmployeeCRUD.java
 	public static void createSeoulCovid(int pnumber, String history, String caughtdate, String location) {
 		EntityManager em = PublicCommon.getEntityManger();
 		EntityTransaction tx = em.getTransaction();
@@ -79,6 +93,26 @@ public class SeoulCovidCRUDService {
 		}
 		return seoulcovid;
 	}
+	public static void deleteElement(int index) {
+		EntityManager em = PublicCommon.getEntityManger();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		try {
+//<<<<<<< Updated upstream:step10_JPA_mp/src/service/SeoulCovidCRUDService.java
+//			locations = (ArrayList<String>) em.createNamedQuery("SeoulPopulation.locations").getResultList();
+//=======
+			SeoulCovid seoulcovid = em.find(SeoulCovid.class, Integer.toUnsignedLong(index));
+			em.remove(seoulcovid);
+			tx.commit();
+			log.warn("삭제 기록");
+//>>>>>>> Stashed changes:step10_JPA_mp/src/run/test/RunEmployeeCRUD.java
+		} catch (Exception e) {
+			tx.rollback();
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+	}
 	
 	public static ArrayList<String> getAllLocations() {
 		EntityManager em = PublicCommon.getEntityManger();
@@ -87,6 +121,7 @@ public class SeoulCovidCRUDService {
 		tx.begin();
 		try {
 			locations = (ArrayList<String>) em.createNamedQuery("SeoulPopulation.locations").getResultList();
+			
 		} catch (Exception e) {
 			tx.rollback();
 			e.printStackTrace();
@@ -112,21 +147,9 @@ public class SeoulCovidCRUDService {
 		}
 		return datelist;
 	}
-	
-	public static void deleteElement(int index) {
-		EntityManager em = PublicCommon.getEntityManger();
-		EntityTransaction tx = em.getTransaction();
-		tx.begin();
-		try {
-			SeoulCovid seoulcovid = em.find(SeoulCovid.class, Integer.toUnsignedLong(index));
-			em.remove(seoulcovid);
-			tx.commit();
-			log.warn("삭제 기록");
-		} catch (Exception e) {
-			tx.rollback();
-			e.printStackTrace();
-		} finally {
-			em.close();
-		}
-	}
+//<<<<<<< Updated upstream:step10_JPA_mp/src/service/SeoulCovidCRUDService.java
 }
+//=======
+	
+
+//>>>>>>> Stashed changes:step10_JPA_mp/src/run/test/RunEmployeeCRUD.java

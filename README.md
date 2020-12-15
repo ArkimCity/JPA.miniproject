@@ -8,7 +8,7 @@
 
 ### 인접 지역 등록
 
-[확인 및 Persist](JPA(COVID-19)%20c9e7f89e68aa466aaf207d63c65e9784/%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB%20%E1%84%86%E1%85%B5%E1%86%BE%20Persist%20e251bd19743d41f8be934a0f9ff27060.md)
+[확인 및 Persist](https://github.com/ArkimCity/JPA_mp/blob/main/JPA(COVID-19)%20c9e7f89e68aa466aaf207d63c65e9784/%ED%99%95%EC%9D%B8%20%EB%B0%8F%20Persist%20e251bd19743d41f8be934a0f9ff27060.md)
 
 ### 차트 표현 관련
 

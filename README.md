@@ -10,13 +10,13 @@
 
 [확인 및 Persist](https://github.com/ArkimCity/JPA_mp/blob/main/JPA(COVID-19)%20c9e7f89e68aa466aaf207d63c65e9784/%ED%99%95%EC%9D%B8%20%EB%B0%8F%20Persist%20e251bd19743d41f8be934a0f9ff27060.md)
 
-### 차트 표현 관련
-
-[Chart](JPA(COVID-19)%20c9e7f89e68aa466aaf207d63c65e9784/Chart%20b682058efc644587b7336e4ec0980dbf.md)
-
 ### 정보 정리 관련
 
 [정보 정리 관련](https://github.com/ArkimCity/JPA_mp/blob/main/JPA(COVID-19)%20c9e7f89e68aa466aaf207d63c65e9784/%EC%A0%95%EB%B3%B4%20%EC%A0%95%EB%A6%AC%20%EA%B4%80%EB%A0%A8%20b5d10c949a3842cd8d9e224b677af7cc.md)
+
+### 차트 표현 관련
+
+[Chart](JPA(COVID-19)%20c9e7f89e68aa466aaf207d63c65e9784/Chart%20b682058efc644587b7336e4ec0980dbf.md)
 
 ### Episode
 
